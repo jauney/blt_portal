@@ -52,9 +52,9 @@ layui.define(['jquery', 'element', 'carousel', 'laypage', 'layer', 'table'], fun
 
         var type = '';
         if (reg.test(checkCode) || auto.test(checkCode)) {
-            type = 'checkcode';
+            type = 'orderCode';
         } else if (name.test(checkCode)) {
-            type = 'bankname';
+            type = 'customerName';
         }
 
 
@@ -77,17 +77,17 @@ layui.define(['jquery', 'element', 'carousel', 'laypage', 'layer', 'table'], fun
 
         $.ajax({
             type: "POST",
-            url: "/common/getDownAccount",
+            url: "/openapi/getpayorder",
             dataType: "json",
             data: JSON.stringify({
-                "checkCode": value,
+                "searchValue": value,
                 "type": type,
                 "pwd": password
             }),
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 layer.close(index);
-                if (!data.result) {
+                if (data.code) {
                     layer.open({
                         content: data.msg,
                         scrollbar: false
@@ -103,22 +103,30 @@ layui.define(['jquery', 'element', 'carousel', 'laypage', 'layer', 'table'], fun
                         if (transAccount > 0) {
                             transHtml = ' - (运费)' + data.totalShouldTransFunds;
                         }
-                        html += [
-                            '<tr><th colspan="3" ></th></tr>',
-                            '<tr><th style="text-align:right;background-color: #fff">转账:</th>',
-                            '<td colspan="3" style="text-align:left;background-color: #fff">' + data.downDate + '</td></tr>',
-                            '<tr><th style="text-align:right;background-color: #fff">下账条数:</th>',
-                            '<td colspan="3" style="text-align:left;background-color: #fff">' + data.count + '</td></tr>',
-                            '<tr><th style="text-align:right;background-color: #fff">下账总金额:</th>',
-                            '<td colspan="3" style="text-align:left;background-color: #fff">' + data.totalActualGoodsFunds + '- 代办费  × ' + data.rate + '‰' + transHtml + '=' + data.account + '</td></tr>',
-                            '<tr><th style="width:80px;text-align:center;background-color: #fff">运单号</th>',
-                            '<th style="width:100px;text-align:center;background-color: #fff">实收货款</th>',
-                            '<th style="width:100px;text-align:center;background-color: #fff">应收货款</th></tr>',
-                            data.downDialogTable
-                        ].join('');
-
+                        html += `
+                        <table class="layui-table">
+                        <tr>
+                            <th>下账时间</th>
+                            <td>${data.payDate}</td>
+                            <th>下账条数</th>
+                            <td>${data.orderNum}</td>
+                        </tr>
+                        <tr>
+                            <th>下账总额</th>
+                            <td colspan="3">${data.totalActualGoodsFunds}(实收货款) - ${data.payTrans}(运费) - ${data.payAgencyFee}(代办费) - ${data.insuranceAmount}(保费) = ${data.payAmount}</td>
+                        </tr>
+                        </table>
+                        <table class="layui-table">
+                        <tr>
+                            <th>运单号</th>
+                            <th>应收货款</th>
+                            <th>实收货款</th>
+                        </tr>
+                        ${data.downDialogTable}
+                        </table>
+                        `
                     }
-                    html = '<table class="layui-table">' + html + "</table>";
+
                     let table_id = layer.open({
                         type: 1 //Page层类型
                         , area: ['500px', '300px']
@@ -172,13 +180,13 @@ layui.define(['jquery', 'element', 'carousel', 'laypage', 'layer', 'table'], fun
 
         $.ajax({
             type: "POST",
-            url: "/common/getGoodsTrack",
+            url: "/openapi/getgoodstrack",
             dataType: "json",
-            data: JSON.stringify({"checkCode": value}),
+            data: JSON.stringify({ "checkCode": value }),
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 layer.close(index);
-                layer.msg(data.msg, [100000, '#ff443a']);
+                layer.msg(data.order_info, [100000, '#ff443a']);
             },
             error: function () {
                 layer.close(index);
