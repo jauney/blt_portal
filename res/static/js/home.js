@@ -156,8 +156,8 @@ layui.define(['jquery', 'element', 'carousel', 'laypage', 'layer', 'table'], fun
         var checkCode = $.trim($('#txtTrackCode').val());
         var customerName = $.trim($('#txtUserName').val());
         var value = '';
-        var reg = /^0{1}[0-9]{6}[,]{0,1}$/;
-        var auto = /^0{1}[1-9]{1}[0-9]+[,]{0,1}$/;
+        var reg = /^[0-9]+$/;
+        var auto = /^[0-9]+$/;
         checkCode = checkCode.replace(/，/ig, ',');
 
         if (!reg.test(checkCode) && !auto.test(checkCode)) {
