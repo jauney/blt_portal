@@ -44,8 +44,8 @@ layui.define(['jquery', 'element', 'carousel', 'laypage', 'layer', 'table'], fun
         var checkCode = $.trim($('#txtAccountCheckCode').val());
         var password = $.trim($('#txtPassword').val());
         var value = '';
-        var reg = /^0{1}[0-9]{6}[,]{0,1}$/;
-        var auto = /^0{1}[1-9]{1}[0-9]+[,]{0,1}$/;
+        var reg = /^[0-9]+$/;
+        var auto = /^[0-9]+$/;
         var name = /^[\u4e00-\u9fa5]{2,5}$|^[\u4e00-\u9fa5]{2,5}[0-9]*$/;
 
         checkCode = checkCode.replace(/，/ig, ',');
@@ -119,8 +119,8 @@ layui.define(['jquery', 'element', 'carousel', 'laypage', 'layer', 'table'], fun
                         <table class="layui-table">
                         <tr>
                             <th>运单号</th>
-                            <th>应收货款</th>
                             <th>实收货款</th>
+                            <th>应收货款</th>
                         </tr>
                         ${data.downDialogTable}
                         </table>
