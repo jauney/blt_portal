@@ -33,12 +33,15 @@
           <div class="tabIntro">
             <div class="content">
               <div class="layui-form">
-                <div class="layui-col-md6 layui-form-item" style="">
+                <div class="layui-col-md6 layui-form-item">
+                  发货人：
+                </div>
+                <div class="layui-col-md6 layui-form-item">
                   <input
                     type="text"
                     id="txtAccountCheckCode"
                     lay-verify="required"
-                    placeholder="运单号或户主姓名查询："
+                    placeholder="运单号或户主姓名查询"
                     class="layui-input inputFocus curtype"
                     mtype="checkcode"
                     style="display: inline-block; width: 80%;"
@@ -73,16 +76,56 @@
                   注：用运单号可以查询单票信息；用户主姓名可以查询您全年信息，为您的信息安全，您可以在发货点设置密码
                 </div>
               </div>
+              <div class="layui-form">
+                <div class="layui-col-md6 layui-form-item">
+                  收货人：
+                </div>
+                <div class="layui-col-md6 layui-form-item">
+                  <input
+                    type="text"
+                    id="txtGetCustomerMobile"
+                    lay-verify="required"
+                    placeholder="收货人手机号"
+                    class="layui-input inputFocus curtype"
+                    mtype="checkcode"
+                    style="display: inline-block; width: 80%;"
+                  />
+                  <button
+                    class="layui-btn tosnmiddle_btns"
+                    id="btnGetCustomerSearch"
+                    value="查询"
+                  >
+                    查询
+                  </button>
+                </div>
+                <div class="layui-col-md6 layui-form-item">
+                  <input
+                    type="password"
+                    name="txtGetCustomerPassword"
+                    id="txtGetCustomerPassword"
+                    placeholder="密码"
+                    class="layui-input inputFocus curtype"
+                    mtype="checkcode"
+                    style="display: inline-block; width: 80%;"
+                  />
+                </div>
+                <!--<div class="layui-col-md6 layui-form-item" style="margin-left: 20%">-->
+                <!--<div id="accountmsg" style="display: none" class="layui-badge"></div>-->
+                <!--</div>-->
+                <div
+                  class="layui-col-md6 layui-form-item content-right"
+                  style="font-size: 12px; color: #aaa;"
+                >
+                  注：用收货人的电话能查上本人全年的明细，为了您的信息安全，您可以在本地物流网点设置密码，可以打电话办理。
+                </div>
+              </div>
             </div>
           </div>
           <div class="tabJob"></div>
           <div class="tabCour">
             <div class="content">
               <div class="layui-form">
-                <div
-                  class="layui-col-md6 layui-form-item"
-                  style="margin-left: 20%;"
-                >
+                <div class="layui-col-md6 layui-form-item">
                   <input
                     type="text"
                     id="txtTrackCode"
@@ -90,15 +133,8 @@
                     placeholder="运单号："
                     class="layui-input inputFocus curtype"
                     mtype="checkcode"
+                    style="display: inline-block; width: 80%;"
                   />
-                </div>
-                <!--<div class="layui-form-item">-->
-                <!--<div id="trackmsg" style="display: none" class="layui-badge"></div>-->
-                <!--</div>-->
-                <div
-                  class="layui-col-md6 layui-form-item content-right"
-                  style="margin-left: 65%;"
-                >
                   <button
                     class="layui-btn tosnmiddle_btns"
                     id="btnTrackSearch"
@@ -116,7 +152,7 @@
     <!-- footer部分 -->
     <div class="includefooter" file="footer.html"></div>
 
-    <script src="./res/layui/layui.js"></script>
+    <script src="./res/layui/layui.js?t=1001"></script>
     <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
       <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>

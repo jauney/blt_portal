@@ -40,7 +40,8 @@ layui.define(['jquery', 'element', 'carousel', 'laypage', 'layer', 'table'], fun
         }
     });
     //查询转账信息（和当前运单号一起下账的信息）
-    $('#btnAccountSearch').click(function () {
+    $('#btnAccountSearch').click(function (event) {
+        console.log(event.target)
         var checkCode = $.trim($('#txtAccountCheckCode').val());
         var password = $.trim($('#txtPassword').val());
         var value = '';
@@ -151,6 +152,80 @@ layui.define(['jquery', 'element', 'carousel', 'laypage', 'layer', 'table'], fun
     });
 
 
+    //查询转账信息（和当前运单号一起下账的信息）
+    $('#btnGetCustomerSearch').click(function (event) {
+        console.log(event.target)
+        var mobile = $.trim($('#txtGetCustomerMobile').val());
+        var password = $.trim($('#txtGetCustomerPassword').val());
+
+        if (mobile.length <= 0) {
+            return false;
+        }
+
+        //loading层
+        var index = layer.load(1, {
+            shade: [0.5, '#445a5d'] //0.1透明度的白色背景
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "/openapi/getsettleorder",
+            dataType: "json",
+            data: JSON.stringify({
+                "searchValue": mobile,
+                "type": 'customerMobile',
+                "pwd": password
+            }),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                layer.close(index);
+                if (data.code) {
+                    layer.open({
+                        content: data.msg,
+                        scrollbar: false
+                    });
+                } else {
+                    var html = '';
+                    var list = data.data;
+                    html += `
+                        <table class="layui-table">
+                        <tr>
+                            <th style="width:15%">姓名</th>
+                            <th style="width:10%">运单号</th>
+                            <th style="width:10%">货物状态</th>
+                            <th style="width:10%">实收货款</th>
+                            <th style="width:10%">运费</th>
+                            <th style="width:10%">运费方式</th>
+                            <th style="width:20%">货物名称</th>
+                            <th style="width:15%">录入时间</th>
+                        </tr>
+                        ${list}
+                        </table>
+                        `
+
+                    let table_id = layer.open({
+                        type: 1 //Page层类型
+                        , title: '货物查询'
+                        , shade: 0.6 //遮罩透明度
+                        , maxmin: true //允许全屏最小化
+                        , anim: 1 //0-6的动画形式，-1不开启
+                        , content: html
+                    });
+                    if (!isPC()) {
+                        let table_id_el = $("#layui-layer" + table_id);
+                        table_id_el[0].style.width = 95 + '%';
+                        table_id_el[0].style.left = 2.5 + '%';
+                    }
+                }
+            },
+            error: function () {
+                layer.close(index);
+                layer.msg("查询失败");
+            }
+        });
+    });
+
+
     //货物跟踪
     $('#btnTrackSearch').click(function () {
         var checkCode = $.trim($('#txtTrackCode').val());
@@ -196,7 +271,7 @@ layui.define(['jquery', 'element', 'carousel', 'laypage', 'layer', 'table'], fun
     });
 
     //如果返回的是false说明当前操作系统是手机端，如果返回的是true则说明当前的操作系统是电脑端
-    function isPC() {
+    function isPC () {
         var userAgentInfo = navigator.userAgent;
         var Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
         var flag = true;

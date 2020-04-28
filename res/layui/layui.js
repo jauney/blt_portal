@@ -1,7 +1,7 @@
 /** layui-v2.4.5 MIT License By https://www.layui.com */
-;!function (e) {
+; !function (e) {
     "use strict";
-    var t = document, o = {modules: {}, status: {}, timeout: 10, event: {}}, n = function () {
+    var t = document, o = { modules: {}, status: {}, timeout: 10, event: {} }, n = function () {
         this.v = "2.4.5"
     }, r = function () {
         var e = t.currentScript ? t.currentScript.src : function () {
@@ -50,14 +50,14 @@
         };
         return r && (t = e, e = []), layui["layui.all"] || !layui["layui.all"] && layui["layui.mobile"] ? i.call(n) : (n.use(e, i), n)
     }, n.prototype.use = function (e, n, l) {
-        function s(e, t) {
+        function s (e, t) {
             var n = "PLaySTATION 3" === navigator.platform ? /^complete$/ : /^(complete|loaded)$/;
-            ("load" === e.type || n.test((e.currentTarget || e.srcElement).readyState)) && (o.modules[f] = t, d.removeChild(v), function r() {
-                return ++m > 1e3 * o.timeout / 4 ? i(f + " is not a valid module") : void(o.status[f] ? c() : setTimeout(r, 4))
+            ("load" === e.type || n.test((e.currentTarget || e.srcElement).readyState)) && (o.modules[f] = t, d.removeChild(v), function r () {
+                return ++m > 1e3 * o.timeout / 4 ? i(f + " is not a valid module") : void (o.status[f] ? c() : setTimeout(r, 4))
             }())
         }
 
-        function c() {
+        function c () {
             l.push(layui[f]), e.length > 1 ? y.use(e.slice(1), n, l) : "function" == typeof n && n.apply(layui, l)
         }
 
@@ -67,11 +67,11 @@
         }), layui.jquery = layui.$ = jQuery);
         var f = e[0], m = 0;
         if (l = l || [], o.host = o.host || (p.match(/\/\/([\s\S]+?)\//) || ["//" + location.host + "/"])[0], 0 === e.length || layui["layui.all"] && u[f] || !layui["layui.all"] && layui["layui.mobile"] && u[f]) return c(), y;
-        if (o.modules[f]) !function g() {
-            return ++m > 1e3 * o.timeout / 4 ? i(f + " is not a valid module") : void("string" == typeof o.modules[f] && o.status[f] ? c() : setTimeout(g, 4))
+        if (o.modules[f]) !function g () {
+            return ++m > 1e3 * o.timeout / 4 ? i(f + " is not a valid module") : void ("string" == typeof o.modules[f] && o.status[f] ? c() : setTimeout(g, 4))
         }(); else {
             var v = t.createElement("script"),
-                h = (u[f] ? p + "lay/" : /^\{\/\}/.test(y.modules[f]) ? "" : o.base || "") + (y.modules[f] || f) + ".js";
+                h = (u[f] ? p + "lay/" : /^\{\/\}/.test(y.modules[f]) ? "" : o.base || "") + (y.modules[f] || f) + ".js?t=" + Math.random();
             h = h.replace(/^\{\/\}/, ""), v.async = !0, v.charset = "utf-8", v.src = h + function () {
                 var e = o.version === !0 ? o.v || (new Date).getTime() : o.version || "";
                 return e ? "?v=" + e : ""
@@ -89,8 +89,8 @@
         var a = this, u = t.createElement("link"), l = t.getElementsByTagName("head")[0];
         "string" == typeof n && (r = n);
         var s = (r || e).replace(/\.|\//g, ""), c = u.id = "layuicss-" + s, y = 0;
-        return u.rel = "stylesheet", u.href = e + (o.debug ? "?v=" + (new Date).getTime() : ""), u.media = "all", t.getElementById(c) || l.appendChild(u), "function" != typeof n ? a : (function p() {
-            return ++y > 1e3 * o.timeout / 100 ? i(e + " timeout") : void(1989 === parseInt(a.getStyle(t.getElementById(c), "width")) ? function () {
+        return u.rel = "stylesheet", u.href = e + (o.debug ? "?v=" + (new Date).getTime() : ""), u.media = "all", t.getElementById(c) || l.appendChild(u), "function" != typeof n ? a : (function p () {
+            return ++y > 1e3 * o.timeout / 100 ? i(e + " timeout") : void (1989 === parseInt(a.getStyle(t.getElementById(c), "width")) ? function () {
                 n()
             }() : setTimeout(p, 100))
         }(), a)
@@ -102,7 +102,7 @@
         var n = new Image;
         return n.src = e, n.complete ? t(n) : (n.onload = function () {
             n.onload = null, "function" == typeof t && t(n)
-        }, void(n.onerror = function (e) {
+        }, void (n.onerror = function (e) {
             n.onerror = null, "function" == typeof o && o(e)
         }))
     }, n.prototype.config = function (e) {
@@ -119,7 +119,7 @@
         for (var o in e) t[o] || t.modules[o] ? i("模块名 " + o + " 已被占用") : t.modules[o] = e[o];
         return t
     }, n.prototype.router = function (e) {
-        var t = this, e = e || location.hash, o = {path: [], search: {}, hash: (e.match(/[^#](#.*$)/) || [])[1] || ""};
+        var t = this, e = e || location.hash, o = { path: [], search: {}, hash: (e.match(/[^#](#.*$)/) || [])[1] || "" };
         return /^#\//.test(e) ? (e = e.replace(/^#\//, ""), o.href = "/" + e, e = e.replace(/([^#])(#.*$)/, "$1").split("/") || [], t.each(e, function (e, t) {
             /^\w+=/.test(t) ? function () {
                 t = t.split("="), o.search[t[0]] = t[1]
@@ -128,7 +128,7 @@
     }, n.prototype.data = function (t, o, n) {
         if (t = t || "layui", n = n || localStorage, e.JSON && e.JSON.parse) {
             if (null === o) return delete n[t];
-            o = "object" == typeof o ? o : {key: o};
+            o = "object" == typeof o ? o : { key: o };
             try {
                 var r = JSON.parse(n[t])
             } catch (i) {
@@ -151,13 +151,13 @@
         };
         return t && !r[t] && (r[t] = n(t)), r.android = /android/.test(o), r.ios = "ios" === r.os, r
     }, n.prototype.hint = function () {
-        return {error: i}
+        return { error: i }
     }, n.prototype.each = function (e, t) {
         var o, n = this;
         if ("function" != typeof t) return n;
         if (e = e || [], e.constructor === Object) {
             for (o in e) if (t.call(e[o], o, e[o])) break
-        } else for (o = 0; o < e.length && !t.call(e[o], o, e[o]); o++) ;
+        } else for (o = 0; o < e.length && !t.call(e[o], o, e[o]); o++);
         return n
     }, n.prototype.sort = function (e, t, o) {
         var n = JSON.parse(JSON.stringify(e || []));
@@ -181,7 +181,7 @@
                 o === !1 && null === a && (a = !1)
             };
         return r ? (o.event[l] = o.event[l] || {}, o.event[l][s] = [r], this) : (layui.each(o.event[l], function (e, t) {
-            return "{*}" === s ? void layui.each(t, c) : ("" === e && layui.each(t, c), void(s && e === s && layui.each(t, c)))
+            return "{*}" === s ? void layui.each(t, c) : ("" === e && layui.each(t, c), void (s && e === s && layui.each(t, c)))
         }), a)
     }, e.layui = new n
 }(window);
